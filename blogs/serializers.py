@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from django.contrib.auth import authenticate
-from rest_framework import serializers
+from .models import BlogStories
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,7 +31,6 @@ class AuthTokenSerializer(serializers.Serializer):
         password = data.get('password')
 
         if username and password:
-            # Note: Handle login with username and email logic as per your requirements
             user = authenticate(request=self.context.get('request'),
                                 username=username, password=password)
             if user and user.email == email:
@@ -44,3 +43,12 @@ class AuthTokenSerializer(serializers.Serializer):
             raise serializers.ValidationError(msg, code='authorization')
 
         return data
+    
+
+class BlogStoriesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlogStories
+        fields = ['img', 'country', 'city', 'publish_date', 'title', 'content', 'author']
+        read_only_fields = ['author']    
+
+

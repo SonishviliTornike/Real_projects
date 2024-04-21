@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import BlogStories
 
-# Register your models here.
+admin.site.register(BlogStories)
+# admin.site.register(BlogDestination)
